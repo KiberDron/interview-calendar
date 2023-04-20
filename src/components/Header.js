@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import AddIcon from '@mui/icons-material/Add';
+import React from "react";
+import styled from "styled-components";
+import AddIcon from "@mui/icons-material/Add";
 
 const StyledHeader = styled.div`
   display: flex;
@@ -9,7 +9,7 @@ const StyledHeader = styled.div`
   padding: 15px;
   height: 10vh;
   & .add-icon {
-    fill: #FF3131;
+    fill: #ff3131;
     cursor: pointer;
     font-size: 1.7rem;
   }
@@ -17,21 +17,21 @@ const StyledHeader = styled.div`
 
 const Heading = styled.h2`
   font-weight: normal;
-`
+`;
 
-function Header({events, setEvents}) {
+function Header({ events, setEvents }) {
   function addEvent() {
-    const event = prompt('Enter event time:\nYYYY-MM-DD hh:mm:ss')
+    const event = prompt("Enter event time:\nYYYY-MM-DD hh:mm:ss");
     if (event) {
-      localStorage.setItem('events', JSON.stringify([...events, event]))
-      setEvents([...events, event])
+      localStorage.setItem("events", JSON.stringify([...events, event]));
+      setEvents([...events, event]);
     }
   }
 
   return (
     <StyledHeader>
       <Heading>Interview Calendar</Heading>
-      <AddIcon className='add-icon' onClick={addEvent} />
+      <AddIcon className="add-icon" onClick={addEvent} />
     </StyledHeader>
   );
 }

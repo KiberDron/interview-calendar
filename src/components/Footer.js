@@ -1,22 +1,22 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const FooterWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 10vh;
-  background-color: #F6F6F6;
-  border-top: 2px solid #F3F3F3;
+  background-color: #f6f6f6;
+  border-top: 2px solid #f3f3f3;
   padding: 2.5vh 9.5%;
   & button {
-    color: #FF3131;
+    color: #ff3131;
     background-color: inherit;
     border: none;
     font-size: 1.2rem;
     cursor: pointer;
   }
-`
+`;
 
 function Footer({
   events,
@@ -31,20 +31,23 @@ function Footer({
   setShowDelete,
   choosenEvent,
   setChoosenEvent,
-  eventsMap
+  eventsMap,
 }) {
   function goToCurrentWeek() {
-    setCurrentWeek(countCurrentWeek())
-    setCurrentMonth(month)
-    setCurrentYear(year)
+    setCurrentWeek(countCurrentWeek());
+    setCurrentMonth(month);
+    setCurrentYear(year);
   }
 
   function deleteEvent() {
-    const eventToDelete = eventsMap[choosenEvent]
-    localStorage.setItem('events', JSON.stringify(events.filter(event => event !== eventToDelete)))
-    setEvents(events.filter(event => event !== eventToDelete))
-    setChoosenEvent(0)
-    setShowDelete(false)
+    const eventToDelete = eventsMap[choosenEvent];
+    localStorage.setItem(
+      "events",
+      JSON.stringify(events.filter((event) => event !== eventToDelete))
+    );
+    setEvents(events.filter((event) => event !== eventToDelete));
+    setChoosenEvent(0);
+    setShowDelete(false);
   }
 
   return (

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { createGlobalStyle } from 'styled-components'
-import Header from './components/Header';
-import Dates from './components/Dates';
-import Main from './components/Main';
-import Footer from './components/Footer';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { createGlobalStyle } from "styled-components";
+import Header from "./components/Header";
+import Dates from "./components/Dates";
+import Main from "./components/Main";
+import Footer from "./components/Footer";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -13,48 +13,48 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-family: Roboto, sans-serif;
   }
-`
+`;
 
 const AppWrapper = styled.div`
   max-width: 740px;
   height: 100vh;
   margin: 0 auto;
-`
+`;
 
 function App() {
   let today = new Date();
-  const dd = String(today.getDate()).padStart(2, '0');
-  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const dd = String(today.getDate()).padStart(2, "0");
+  const mm = String(today.getMonth() + 1).padStart(2, "0");
   const yyyy = today.getFullYear();
-  today = yyyy + '-' + mm + '-' + dd;
+  today = yyyy + "-" + mm + "-" + dd;
 
-  const weekMap = { 0: 6, 1: 0, 2: 1, 3: 2, 4: 3, 5: 4, 6: 5 }
+  const weekMap = { 0: 6, 1: 0, 2: 1, 3: 2, 4: 3, 5: 4, 6: 5 };
 
   function countCurrentWeek() {
-    const week = []
+    const week = [];
     const date = new Date();
-    const dayOfWeek = weekMap[date.getDay()]
-    date.setDate(date.getDate() - dayOfWeek)
-    let dd = String(date.getDate()).padStart(2, '0');
+    const dayOfWeek = weekMap[date.getDay()];
+    date.setDate(date.getDate() - dayOfWeek);
+    let dd = String(date.getDate()).padStart(2, "0");
 
     for (let i = 0; i < 7; i++) {
-      week.push(Number(dd))
-      date.setDate(date.getDate() + 1)
-      dd = String(date.getDate()).padStart(2, '0');
+      week.push(Number(dd));
+      date.setDate(date.getDate() + 1);
+      dd = String(date.getDate()).padStart(2, "0");
     }
 
-    return week
+    return week;
   }
 
   const [currentWeek, setCurrentWeek] = useState(countCurrentWeek());
   const [currentMonth, setCurrentMonth] = useState(mm);
   const [currentYear, setCurrentYear] = useState(yyyy);
 
-  const [events, setEvents] = useState(JSON.parse(localStorage.getItem('events')) || []);
+  const [events, setEvents] = useState(
+    JSON.parse(localStorage.getItem("events")) || []
+  );
 
   const [showDelete, setShowDelete] = useState(false);
-  console.log(events)
-  console.log(localStorage)
 
   const [choosenEvent, setChoosenEvent] = useState(0);
 
@@ -63,10 +63,7 @@ function App() {
   return (
     <AppWrapper>
       <GlobalStyle />
-      <Header
-        events={events}
-        setEvents={setEvents}
-      />
+      <Header events={events} setEvents={setEvents} />
       <Dates
         today={today}
         currentWeek={currentWeek}
