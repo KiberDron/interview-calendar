@@ -31,6 +31,8 @@ const DateContainer = styled.div`
     background-color: ${(props) => (props.check ? "#FF3131" : "")};
     border-radius: ${(props) => (props.check ? "16px" : "")};
     outline: ${(props) => (props.check ? "7px solid #FF3131" : "")};
+    width: 2ch;
+    text-align: center;
   }
 `;
 
@@ -143,7 +145,7 @@ function Dates({
             checkMonth={checkIfCurrentMonth(index)}
           >
             <span className="day">{daysOfTheWeek[index]}</span>
-            <span className={"date"}>{date}</span>
+            <div className={"date"}>{date}</div>
           </DateContainer>
         ))}
       </WeekContainer>

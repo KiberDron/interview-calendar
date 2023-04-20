@@ -61,11 +61,32 @@ function Main({
 
   function checkEventInCell(cell) {
     const dayOfTheWeek = cell % 7 ? (cell % 7) - 1 : 6;
+
     let hour = cell % 7 ? Math.floor(cell / 7) : Math.floor(cell / 7) - 1;
     if (hour < 10) {
       hour = `0${hour}`;
     }
-    const pattern = `^${currentYear}-${currentMonth}-${currentWeek[dayOfTheWeek]} ${hour}:`;
+
+    let currentDate = currentWeek[dayOfTheWeek];
+    if (currentDate < 10) {
+      currentDate = `0${currentDate}`;
+    }
+
+    let monthToCheck = currentMonth;
+    let yearToCheck = currentYear;
+    if (currentWeek[dayOfTheWeek] < currentWeek[0]) {
+      if (currentMonth !== "12") {
+        monthToCheck = Number(currentMonth) + 1;
+        if (monthToCheck < 10) {
+          monthToCheck = `0${monthToCheck}`;
+        }
+      } else {
+        monthToCheck = "01";
+        yearToCheck++;
+      }
+    }
+
+    const pattern = `^${yearToCheck}-${monthToCheck}-${currentDate} ${hour}:`;
     const re = new RegExp(pattern);
     for (const event of events) {
       if (re.test(event)) {
