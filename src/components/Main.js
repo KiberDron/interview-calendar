@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import ModalSeeEvent from "./ModalSeeEvent";
 
 const MainWrapper = styled.div`
   display: grid;
@@ -39,10 +40,10 @@ const Cell = styled.div`
 
 function Main({
   events,
+  setEvents,
   currentWeek,
   currentMonth,
   currentYear,
-  setShowDelete,
   choosenEvent,
   setChoosenEvent,
   eventsMap,
@@ -88,25 +89,26 @@ function Main({
 
     const pattern = `^${yearToCheck}-${monthToCheck}-${currentDate} ${hour}:`;
     const re = new RegExp(pattern);
-    for (const event of events) {
+    for (const event in events) {
       if (re.test(event)) {
-        return [true, event];
+        return [true, [event, events[event]]];
       }
     }
     return [false, null];
   }
 
-  function CellClickHandler(cell) {
+  function cellClickHandler(cell) {
     const checkResult = checkEventInCell(cell);
     if (checkResult[0]) {
-      setShowDelete(true);
       setChoosenEvent(cell);
       setEventsMap({ ...eventsMap, [cell]: checkResult[1] });
+      setSeeEventVisible(true);
     } else {
-      setShowDelete(false);
       setChoosenEvent(0);
     }
   }
+
+  const [seeEventVisible, setSeeEventVisible] = useState(false);
 
   return (
     <MainWrapper>
@@ -121,11 +123,23 @@ function Main({
             key={cell}
             id={cell}
             isEvent={checkEventInCell(cell)[0]}
-            onClick={() => CellClickHandler(cell)}
+            onClick={() => cellClickHandler(cell)}
             choosen={cell === choosenEvent ? true : false}
           />
         ))}
       </GridWrapper>
+      <ModalSeeEvent
+        show={seeEventVisible}
+        onHide={() => {
+          setSeeEventVisible(false);
+          setChoosenEvent(0);
+        }}
+        events={events}
+        setEvents={setEvents}
+        choosenEvent={choosenEvent}
+        setChoosenEvent={setChoosenEvent}
+        eventsMap={eventsMap}
+      />
     </MainWrapper>
   );
 }

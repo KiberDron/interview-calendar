@@ -58,7 +58,6 @@ function Dates({
   setCurrentMonth,
   setCurrentYear,
   setChoosenEvent,
-  setShowDelete,
 }) {
   const daysOfTheWeek = ["M", "T", "W", "T", "F", "S", "S"];
 
@@ -132,7 +131,6 @@ function Dates({
     setCurrentMonth(mm);
     setCurrentYear(yyyy);
     setChoosenEvent(0);
-    setShowDelete(false);
   }
 
   return (

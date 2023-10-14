@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Dates from "./components/Dates";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -12,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     font-family: Roboto, sans-serif;
+    line-height: normal;
   }
 `;
 
@@ -51,10 +53,8 @@ function App() {
   const [currentYear, setCurrentYear] = useState(yyyy);
 
   const [events, setEvents] = useState(
-    JSON.parse(localStorage.getItem("events")) || []
+    JSON.parse(localStorage.getItem("events")) || {}
   );
-
-  const [showDelete, setShowDelete] = useState(false);
 
   const [choosenEvent, setChoosenEvent] = useState(0);
 
@@ -73,7 +73,6 @@ function App() {
         setCurrentMonth={setCurrentMonth}
         setCurrentYear={setCurrentYear}
         setChoosenEvent={setChoosenEvent}
-        setShowDelete={setShowDelete}
       />
       <Main
         events={events}
@@ -81,27 +80,18 @@ function App() {
         currentWeek={currentWeek}
         currentMonth={currentMonth}
         currentYear={currentYear}
-        setShowDelete={setShowDelete}
         choosenEvent={choosenEvent}
         setChoosenEvent={setChoosenEvent}
         eventsMap={eventsMap}
         setEventsMap={setEventsMap}
       />
       <Footer
-        events={events}
-        setEvents={setEvents}
         countCurrentWeek={countCurrentWeek}
         month={mm}
         year={yyyy}
         setCurrentWeek={setCurrentWeek}
         setCurrentMonth={setCurrentMonth}
         setCurrentYear={setCurrentYear}
-        showDelete={showDelete}
-        setShowDelete={setShowDelete}
-        choosenEvent={choosenEvent}
-        setChoosenEvent={setChoosenEvent}
-        eventsMap={eventsMap}
-        setEventsMap={setEventsMap}
       />
     </AppWrapper>
   );

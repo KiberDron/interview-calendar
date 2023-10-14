@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import AddIcon from "@mui/icons-material/Add";
+import ModalAddEvent from "./ModalAddEvent";
 
 const StyledHeader = styled.div`
   display: flex;
@@ -17,21 +18,23 @@ const StyledHeader = styled.div`
 
 const Heading = styled.h2`
   font-weight: normal;
+  font-size: 1.5em;
+  margin: 0;
 `;
 
 function Header({ events, setEvents }) {
-  function addEvent() {
-    const event = prompt("Enter event time:\nYYYY-MM-DD hh:mm:ss");
-    if (event) {
-      localStorage.setItem("events", JSON.stringify([...events, event]));
-      setEvents([...events, event]);
-    }
-  }
+  const [addEventVisible, setAddEventVisible] = useState(false);
 
   return (
     <StyledHeader>
       <Heading>Interview Calendar</Heading>
-      <AddIcon className="add-icon" onClick={addEvent} />
+      <AddIcon className="add-icon" onClick={() => setAddEventVisible(true)} />
+      <ModalAddEvent
+        show={addEventVisible}
+        onHide={() => setAddEventVisible(false)}
+        events={events}
+        setEvents={setEvents}
+      />
     </StyledHeader>
   );
 }

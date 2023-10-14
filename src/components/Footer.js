@@ -19,19 +19,12 @@ const FooterWrapper = styled.div`
 `;
 
 function Footer({
-  events,
-  setEvents,
   countCurrentWeek,
   month,
   year,
   setCurrentWeek,
   setCurrentMonth,
   setCurrentYear,
-  showDelete,
-  setShowDelete,
-  choosenEvent,
-  setChoosenEvent,
-  eventsMap,
 }) {
   function goToCurrentWeek() {
     setCurrentWeek(countCurrentWeek());
@@ -39,21 +32,9 @@ function Footer({
     setCurrentYear(year);
   }
 
-  function deleteEvent() {
-    const eventToDelete = eventsMap[choosenEvent];
-    localStorage.setItem(
-      "events",
-      JSON.stringify(events.filter((event) => event !== eventToDelete))
-    );
-    setEvents(events.filter((event) => event !== eventToDelete));
-    setChoosenEvent(0);
-    setShowDelete(false);
-  }
-
   return (
     <FooterWrapper>
       <button onClick={goToCurrentWeek}>Today</button>
-      {showDelete && <button onClick={deleteEvent}>Delete</button>}
     </FooterWrapper>
   );
 }
